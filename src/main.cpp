@@ -18,19 +18,27 @@ class SensorUltrasonico {
     }
 
     float medirDistancia() {
-      digitalWrite(pinTrig, LOW);
-      delayMicroseconds(2);
-      digitalWrite(pinTrig, HIGH);
-      delayMicroseconds(10);
-      digitalWrite(pinTrig, LOW);
+      float suma = 0;
+      int lecturasValidas = 0;
+      for(int i = 0; i < 5; i++) {
 
-      long duracion = pulseIn(pinEcho, HIGH);
-      float distancia = duracion * 0.034 / 2; // cm
-
-      return distancia;
+        digitalWrite(pinTrig, LOW);
+        delayMicroseconds(5);
+        digitalWrite(pinTrig, HIGH);
+        delayMicroseconds(10);
+        digitalWrite(pinTrig, LOW);
+        long duracion = pulseIn(pinEcho, HIGH, 30000);
+        if(duracion > 0) {
+          float distancia = duracion * 0.0343 / 2;
+          suma += distancia;
+          lecturasValidas++;
+        }
+        delay(10);
+      }
+      if(lecturasValidas == 0) return -1;
+      return suma / lecturasValidas;
     }
-};
-
+  };
 // ===== Clase ControlLeds =====
 class ControlLeds {
   private:
