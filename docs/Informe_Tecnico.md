@@ -50,7 +50,7 @@
 
 ### 2.4 Diagramas Estructurales y de Comportamiento
 
-![Diagramas Estructurales y de Comportamiento](/docs/images/DE3.png)
+![Diagramas Estructurales y de Comportamiento](/docs/images/DE_3.png)
 
 # 3. Implementacion
 
