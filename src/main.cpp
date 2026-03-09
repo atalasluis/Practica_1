@@ -2,117 +2,175 @@
 
 // ===== Clase SensorUltrasonico =====
 class SensorUltrasonico {
-  private:
-    int pinTrig;
-    int pinEcho;
 
-  public:
-    SensorUltrasonico(int trig, int echo) {
-      pinTrig = trig;
-      pinEcho = echo;
-    }
+private:
+  int trig;
+  int echo;
 
-    void begin() {
-      pinMode(pinTrig, OUTPUT);
-      pinMode(pinEcho, INPUT);
-    }
+  float medirSimple() {
 
-    float medirDistancia() {
-      float suma = 0;
-      int lecturasValidas = 0;
-      for(int i = 0; i < 5; i++) {
+    digitalWrite(trig, LOW);
+    delayMicroseconds(3);
 
-        digitalWrite(pinTrig, LOW);
-        delayMicroseconds(5);
-        digitalWrite(pinTrig, HIGH);
-        delayMicroseconds(10);
-        digitalWrite(pinTrig, LOW);
-        long duracion = pulseIn(pinEcho, HIGH, 30000);
-        if(duracion > 0) {
-          float distancia = duracion * 0.0343 / 2;
-          suma += distancia;
-          lecturasValidas++;
+    digitalWrite(trig, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trig, LOW);
+
+    long duracion = pulseIn(echo, HIGH, 30000);
+
+    if (duracion == 0) return -1;
+
+    float distancia = (duracion * 0.0343) / 2;
+    return distancia;
+  }
+
+  void ordenar(float arr[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+      for (int j = 0; j < n - i - 1; j++) {
+        if (arr[j] > arr[j + 1]) {
+          float temp = arr[j];
+          arr[j] = arr[j + 1];
+          arr[j + 1] = temp;
         }
-        delay(10);
       }
-      if(lecturasValidas == 0) return -1;
-      return suma / lecturasValidas;
     }
-  };
-// ===== Clase ControlLeds =====
-class ControlLeds {
-  private:
-    int led1, led2, led3;
+  }
 
-  public:
-    ControlLeds(int l1, int l2, int l3) {
-      led1 = l1;
-      led2 = l2;
-      led3 = l3;
-    }
+public:
 
-    void begin() {
-      pinMode(led1, OUTPUT);
-      pinMode(led2, OUTPUT);
-      pinMode(led3, OUTPUT);
-    }
+  SensorUltrasonico(int t, int e) {
+    trig = t;
+    echo = e;
+  }
 
-    void apagarTodos() {
-      digitalWrite(led1, LOW);
-      digitalWrite(led2, LOW);
-      digitalWrite(led3, LOW);
-    }
+  void begin() {
+    pinMode(trig, OUTPUT);
+    pinMode(echo, INPUT);
+  }
 
-    void encenderNivel(int nivel) {
-      apagarTodos();
+  float medirDistancia() {
 
-      if (nivel >= 1) digitalWrite(led1, HIGH);
-      if (nivel >= 2) digitalWrite(led2, HIGH);
-      if (nivel >= 3) digitalWrite(led3, HIGH);
+    const int muestras = 7;
+    float valores[muestras];
+    int validas = 0;
+
+    for (int i = 0; i < muestras; i++) {
+
+      float d = medirSimple();
+
+      if (d > 0 && d < 400) {
+        valores[validas++] = d;
+      }
+
+      delay(15);
     }
 
-    void parpadearTodos() {
-      digitalWrite(led1, HIGH);
-      digitalWrite(led2, HIGH);
-      digitalWrite(led3, HIGH);
-      delay(200);
+    if (validas == 0) return -1;
 
-      digitalWrite(led1, LOW);
-      digitalWrite(led2, LOW);
-      digitalWrite(led3, LOW);
-      delay(200);
-    }
+    ordenar(valores, validas);
+
+    return valores[validas / 2]; // mediana
+  }
 };
 
+
+
+// ===== Clase ControlLeds =====
+class ControlLeds {
+
+private:
+  int l1, l2, l3;
+
+public:
+
+  ControlLeds(int a, int b, int c) {
+    l1 = a;
+    l2 = b;
+    l3 = c;
+  }
+
+  void begin() {
+    pinMode(l1, OUTPUT);
+    pinMode(l2, OUTPUT);
+    pinMode(l3, OUTPUT);
+  }
+
+  void apagar() {
+    digitalWrite(l1, LOW);
+    digitalWrite(l2, LOW);
+    digitalWrite(l3, LOW);
+  }
+
+  void nivel(int n) {
+
+    apagar();
+
+    if (n >= 1) digitalWrite(l1, HIGH);
+    if (n >= 2) digitalWrite(l2, HIGH);
+    if (n >= 3) digitalWrite(l3, HIGH);
+  }
+
+  void parpadeo() {
+
+    digitalWrite(l1, HIGH);
+    digitalWrite(l2, HIGH);
+    digitalWrite(l3, HIGH);
+
+    delay(150);
+
+    digitalWrite(l1, LOW);
+    digitalWrite(l2, LOW);
+    digitalWrite(l3, LOW);
+
+    delay(150);
+  }
+};
+
+
+
 // ===== Objetos =====
-SensorUltrasonico sensor(3, 2);
-ControlLeds leds(4, 5, 6);
+SensorUltrasonico sensor(15, 2);
+ControlLeds leds(5, 18, 19);
+
+
 
 // ===== Setup =====
 void setup() {
-  Serial.begin(9600);
+
+  Serial.begin(115200);
+
   sensor.begin();
   leds.begin();
 }
+
+
+
+// ===== Loop =====
 void loop() {
+
   float distancia = sensor.medirDistancia();
+
+  Serial.print("Distancia: ");
   Serial.println(distancia);
 
+  if (distancia == -1) return;
+
   if (distancia > 30) {
-    leds.apagarTodos();
+    leds.apagar();
   }
   else if (distancia > 20) {
-    leds.encenderNivel(1);
+    leds.nivel(1);
   }
   else if (distancia > 10) {
-    leds.encenderNivel(2);
+    leds.nivel(2);
   }
   else if (distancia > 5) {
-    leds.encenderNivel(3);
+    leds.nivel(3);
   }
-  else {
-    leds.parpadearTodos();
+  else if (distancia > 3) {
+    leds.parpadeo();
   }
 
-  delay(200);
+  delay(120);
 }
+
