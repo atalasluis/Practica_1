@@ -1,5 +1,6 @@
 # 1. Requerimientos Funcionales y No Funcionales
-    1.1 Requerimientos Funcionales
+
+### 1.1 Requerimientos Funcionales
 
         El sistema debe ser capaz de medir la distancia hacia un objeto cercano, encendiendo:
             -Un led color verde a una distancia entre 20 cm a 30 cm.
@@ -14,8 +15,10 @@
     -El sistema debe utilizar múltiples muestras para reducir fluctuaciones en la lectura del sensor.
 
 # 2. Diseño del Sistema
-    # 2.1 Diagrama de Bloques
-    # 2.2 Diagrama de Circuito
+
+### 2.1 Diagrama de Bloques
+
+### 2.2 Diagrama de Circuito
 
                     ESP32-WROOM-32
                 ┌──────────────────┐
@@ -41,13 +44,18 @@
     GND ────────┤ GND             │
                 └─────────────────┘
 
-    # 2.3 Diagrama de Arquitectura del Sistema
+### 2.3 Diagrama de Arquitectura del Sistema
 
 ![Arquitectura del Sistema](/docs/images/DE2.png)
 
-    # 2.4 Diagramas Estructurales y de Comportamiento
+### 2.4 Diagramas Estructurales y de Comportamiento
+
+![Diagramas Estructurales y de Comportamiento](/docs/images/DE3.png)
+
 # 3. Implementacion
-    # 3.1 Codigo Fuente Documentado
+
+### 3.1 Codigo Fuente Documentado
+
 # 4. Pruebas y Validasiones
 
 | Objeto            | Distancia Real (cm) | Error (cm) | Error (%) |
@@ -77,6 +85,9 @@
     También se observó que el tipo de objeto influye ligeramente en la medición, debido a factores como la textura y la capacidad de reflejar la onda ultrasónica.
 
 # 5. Resultados
+
 # 6. Concluciones
+
 # 7. Recomendaciones
+
 # 8. Anexos
