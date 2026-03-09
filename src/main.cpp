@@ -94,8 +94,6 @@ void setup() {
   sensor.begin();
   leds.begin();
 }
-
-// ===== Loop =====
 void loop() {
   float distancia = sensor.medirDistancia();
   Serial.println(distancia);
@@ -116,5 +114,5 @@ void loop() {
     leds.parpadearTodos();
   }
 
-  delay(100);
+  delay(200);
 }
