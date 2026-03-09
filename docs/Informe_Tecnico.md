@@ -163,24 +163,24 @@ Estas mejoras permitirían ampliar las funcionalidades del sistema y acercarlo a
 
 # 8. Anexos
 
-![Sistema armado](/docs/images/sistema_armado.jpg)
+![Sistema armado](/docs/images/sistema_armado.jpeg)
 
 *Figura 8.1: Prototipo del sistema de medición de distancia basado en ESP32, sensor ultrasónico HC-SR04 y LEDs indicadores.*
 
 ---
 
-![Registro de mediciones](/docs/images/mediciones_experimento.jpg)
+![Registro de mediciones](/docs/images/mediciones_experimento.jpeg)
 
 *Figura 8.2: Papel usado para las mediciones realizadas durante las pruebas experimentales del sistema.*
 
 ---
 
-![Tabla de madera utilizada](/docs/images/tabla_madera.jpg)
+![Tabla de madera utilizada](/docs/images/tabla_madera.jpeg)
 
 *Figura 8.3: Tabla de madera utilizada como objeto de referencia para las mediciones de distancia.*
 
 ---
 
-![Rollo de papel utilizado](/docs/images/rollo_papel.jpg)
+![Rollo de papel utilizado](/docs/images/rollo_papel.jpeg)
 
 *Figura 8.4: Rollo de papel utilizado como objeto adicional durante los experimentos para evaluar la respuesta del sensor.*
