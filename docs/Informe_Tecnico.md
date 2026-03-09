@@ -3,16 +3,16 @@
 ### 1.1 Requerimientos Funcionales
 
         El sistema debe ser capaz de medir la distancia hacia un objeto cercano, encendiendo:
-            -Un led color verde a una distancia entre 20 cm a 30 cm.
-            -Un led color amarillo a una distancia entre 10 cm a 20 cm.
-            -Un led color rojo a una distancia entre 5 cm a 10 cm.
-            -Los 3 leds parpadean a una distancia mayor a 3cm.
+            - Un led color verde a una distancia entre 20 cm a 30 cm.
+            - Un led color amarillo a una distancia entre 10 cm a 20 cm.
+            - Un led color rojo a una distancia entre 5 cm a 10 cm.
+            - Los 3 leds parpadean a una distancia mayor a 3cm.
 
 # 1.2 Requerimientos No Funcionales
 
-    -El sistema debe medir distancias con un margen de error aproximado de +- 3 cm
-    -El software debe estar estructurado utilizando programación orientada a objetos, separando el control del sensor y de los LEDs en clases independientes.
-    -El sistema debe utilizar múltiples muestras para reducir fluctuaciones en la lectura del sensor.
+    - El sistema debe medir distancias con un margen de error aproximado de +- 3 cm
+    - El software debe estar estructurado utilizando programación orientada a objetos, separando el control del sensor y de los LEDs en clases independientes.
+    - El sistema debe utilizar múltiples muestras para reducir fluctuaciones en la lectura del sensor.
 
 # 2. Diseño del Sistema
 

@@ -1,1 +1,2 @@
 # Practica_1
+El sistema desarrollado consiste en un dispositivo basado en el microcontrolador ESP32-WROOM-32 que utiliza un sensor ultrasónico HC-SR04 para medir la distancia entre el sensor y un objeto ubicado frente a él. La información obtenida es procesada por el microcontrolador y representada mediante tres LEDs, los cuales indican el nivel de proximidad del objeto detectado.
